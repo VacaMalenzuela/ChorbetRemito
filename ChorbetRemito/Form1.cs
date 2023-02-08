@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Modelo;
+using Dominio;
 
 namespace ChorbetRemito
 {
@@ -19,7 +21,23 @@ namespace ChorbetRemito
 
         private void FormRemito_Load(object sender, EventArgs e)
         {
-           
+            CargarBox();
+        }
+
+        public void CargarBox()
+        {
+            ClienteNegocio negocioc = new ClienteNegocio();
+            ProductoNegocio negociop = new ProductoNegocio();
+            try
+            {
+                cbxClientes.DataSource = negocioc.listarNombres();
+                cbxProductos.DataSource = negociop.listar();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
     }
 }

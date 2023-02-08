@@ -37,5 +37,26 @@ namespace Dominio
 
             return Lista;
         }
+
+        public List<Cliente> listarNombres()
+        {
+            List<Cliente> Lista = new List<Cliente>();
+            AccesoDatos datos = new AccesoDatos();
+            datos.setConsulta("select id, Nombre from Clientes");
+            datos.EjecutarLectura();
+
+            while (datos.Lector.Read())
+            {
+                Cliente aux = new Cliente();
+
+                aux.Id = (int)datos.Lector["id"];
+                if (!(datos.Lector["nombre"] is DBNull))
+                    aux.Nombre = (string)datos.Lector["nombre"];
+
+                Lista.Add(aux);
+            }
+
+            return Lista;
+        }
     }
 }
